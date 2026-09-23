@@ -151,11 +151,11 @@
     default_layer {
       display-name = "Base";
       bindings = <
-        &kp F1            &kp F2            &kp F3            &kp F4            &kp F5            &kp F6                                                &kp F9            &kp F10           &kp F11           &kp F12           &kp F13           &kp F14
-        &kp DELETE        &kp Q             &kp W             &lt NUMPAD F      &kp P             &kp B                                                 &kp J             &kp L             &kp U             &kp Y             &kp SEMI          &kp F17
-        &kp TAB           HM_A              HM_R              HM_S              &kp T             &kp G                                                 &kp M             &kp N             HM_E              HM_I              HM_O              &dsq
-        &kp KP_MINUS      &kp Z             &kp X             &kp C             &kp D             &kp V             &kp ESC           &kp ENTER         &kp K             &kp H             &kp COMMA         &kp DOT           &kp FSLH          &kp UNDERSCORE
-                                            &td_cc            &kp LEFT          &kp RIGHT         &kp BKSP          &td_shft          &sl SYMBOLS       &kp SPACE         &kp UP            &kp DOWN          &mo MOD
+        &kp F1        &kp F2  &kp F3   &kp F4        &kp F5     &kp F6                                        &kp F9  &kp F10    &kp F11  &kp F12   &kp F13          &mo MOD
+        &kp DELETE    &kp Q   &kp W    &lt NUMPAD F  &kp P      &kp B                                         &kp J   &kp L      &kp U    &kp Y     &kp SEMI         &kp F17
+        &kp TAB       HM_A    HM_R     HM_S          &kp T      &kp G                                         &kp M   &kp N      HM_E     HM_I      HM_O             &dsq
+        &kp KP_MINUS  &kp Z   &kp X    &kp C         &kp D      &kp V     &kp ESC     &kp ENTER    &kp K      &kp H   &kp COMMA  &kp DOT  &kp FSLH  &kp UNDERSCORE
+                              &kp F21  &kp LEFT      &kp RIGHT  &kp BKSP  &td_shft    &sl SYMBOLS  &kp SPACE  &kp UP  &kp DOWN   &kp F22
       >;
     };
 
