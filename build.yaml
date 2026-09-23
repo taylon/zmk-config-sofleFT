@@ -1,6 +1,6 @@
 # Sofle FT - buduje 5 firmware:
-#   - lewa OLED + Studio
-#   - lewa nice!view + Studio
+#   - lewa OLED
+#   - lewa nice!view
 #   - prawa OLED
 #   - prawa nice!view
 #   - settings_reset (do wyczyszczenia BLE)
@@ -11,12 +11,10 @@ include:
   # Lewa z OLED
   - board: nice_nano//zmk
     shield: sofle_left
-    snippet: studio-rpc-usb-uart
     artifact-name: sofle_left_oled
   # Lewa z nice!view
   - board: nice_nano//zmk
     shield: sofle_left nice_view_adapter nice_view
-    snippet: studio-rpc-usb-uart
     artifact-name: sofle_left_niceview
   # Prawa z OLED
   - board: nice_nano//zmk

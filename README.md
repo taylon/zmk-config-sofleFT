@@ -1,201 +1,118 @@
-Tak, bo GitHub README musi być w czystym Markdownie. Wklej bez :::writing, bez dziwnych znaków i najlepiej z normalnymi tabelami.
+# Sofle FT — Adv360 layout
 
-# zmk-config-sofleft
+ZMK configuration for the FalbaTech Sofle wireless, adapted from the personal
+`Adv360-Pro-ZMK/config/adv360.keymap`. The letter layout, home-row modifiers,
+behavior timings, Numpad and Symbols layers match the Adv360. ZMK Studio is
+disabled; edit `config/sofle.keymap` and rebuild to change the layout.
 
-## PL
+## Base layout
 
-Konfiguracja ZMK dla **Sofle FT** - klawiatury ergonomicznej FalbaTech z enkoderami.
+Rows are shown left to right as viewed while typing. The two keys in the gap
+on the fourth row are normal keys: Escape on the left and Enter on the right.
+This keyboard has no encoders. The bottom row has five thumb keys per half.
 
-## Hardware
+```text
+ F1    F2    F3    F4    F5    F6                  F9    F10   F11   F12   F13   F14
+ Del   Q     W     F/Num P     B                   J     L     U     Y     ;     F17
+ Tab   A/GUI R/Alt S/Ctrl T    G                   M     N     E/Ctrl I/Alt O/GUI Quote
+ KP-   Z     X     C     D     V     Esc     Enter K     H     ,     .     /     _
+             Copy  Left  Right Bksp Shift   Symbols Space Up    Down  Mod
+```
 
-- Shield: `sofle` (oficjalny w upstream ZMK)
-- Kontrolery: 2x nice!nano v2
-- Wyświetlacz: OLED SSD1306 lub nice!view, zależnie od buildu
-- RGB: per-key WS2812, 30 LED na każdej połówce, bez underglow
-- 2x enkoder, po jednym na każdej połówce
-- 60 klawiszy, 5 rzędów x 6 kolumn + 5 thumb na stronę
+- Hold **A/R/S** for left GUI/Alt/Ctrl, or **E/I/O** for left Ctrl/Alt/GUI.
+  These retain the Adv360's balanced 240 ms tapping term, 175 ms quick tap,
+  150 ms prior idle, and opposite-hand hold triggers remapped to Sofle positions.
+- Tap **F** to type `f`; hold it for **Numpad**.
+- Tap **Shift** once for sticky left Shift (1-second timeout and quick release),
+  twice for Caps Word. All tap dances retain the Adv360's 200 ms tapping term.
+- **Quote** produces `"`, or `'` with left Shift.
+- Tap **Copy** once for Ctrl+C, twice for Ctrl+X.
+- Tap **Symbols** for the sticky Symbols layer; holding it also keeps the layer active.
+- Hold the outermost right thumb key for **Mod**.
 
-## Warstwy
+## Numpad
 
-| # | Nazwa | Funkcja |
-|---|---|---|
-| 0 | `default_layer` | QWERTY base |
-| 1 | `lower_layer` | Cyfry, F-keys, aktywowane lewym thumbem |
-| 2 | `raise_layer` | Symbole, nawigacja, aktywowane prawym thumbem |
-| 3 | `adjust_layer` | System, RGB controls, BT controls |
+Hold **F**. Numbers stay on the same letter positions as on the Adv360:
 
-## Enkodery
+```text
+ L = 7    U = 8    Y = 9
+ N = 4    E = 5    I = 6
+ H = 1    , = 2    . = 3
+```
 
-### Warstwa BASE
+On the right thumb row, **Up = 0**, **Down = decimal point**, and **Mod = equals**.
+Other positions fall through to Base.
 
-- Lewy enkoder: głośność, Volume Up/Down
-- Prawy enkoder: Page Up/Down
+## Symbols
 
-### Warstwa ADJUST
+The left letter block is unchanged. Paired delimiters use one tap for the
+opening character and two taps for the closing character.
 
-- Lewy enkoder: jasność ekranu
-- Prawy enkoder: głośność
-
-## ZMK Studio
-
-ZMK Studio jest aktywne.
-
-Procedura odblokowania jest taka sama we wszystkich klawiaturach FalbaTech FT:
-
-> Trzymaj oba thumby aktywujące warstwy systemowe, LOWER + RAISE, i wciśnij skrajny lewy górny klawisz, ` / ESC.
-
-Po odblokowaniu klawiatura jest edytowalna z poziomu przeglądarki:
-
-https://zmk.studio
-
-## Bluetooth - obsługa 5 urządzeń
-
-Klawiatura obsługuje 5 niezależnych profili Bluetooth. Przełączanie odbywa się w warstwie systemowej `adjust_layer`.
-
-| Klawisz | Funkcja |
+| Base key | Symbols output |
 |---|---|
-| `Z` | Profil BT 0 |
-| `X` | Profil BT 1 |
-| `C` | Profil BT 2 |
-| `V` | Profil BT 3 |
-| `B` | Profil BT 4 |
-| `N` | Wyczyść aktywny profil |
-| `M` | Wyczyść wszystkie profile |
-| `,` | Tryb USB |
-| `.` | Tryb Bluetooth |
+| F4 | `:=` macro |
+| Q / W / F / P / B | `%` / `@` / `{` or `}` / `$` / `\|` |
+| A / R / S / T / G | `#` / `~` / `(` or `)` / `=` / `+` |
+| Z / X / C / D / V | `^` / `!` / `[` or `]` / `&` / `*` |
+| Copy thumb | `->` macro |
+| Left thumb arrow | Backslash |
+| Right thumb arrow | Grave accent |
 
-## RGB controls
+Other positions fall through to Base (or Numpad if F is also held).
 
-Sterowanie RGB znajduje się w warstwie `adjust_layer`.
+## Mod
 
-| Klawisz | Funkcja |
+Hold **Mod**, then press the indicated Base key:
+
+| Base key | Action |
 |---|---|
-| Górny rząd F-keys / RGB | F1-F10 |
-| Środkowy rząd RGB | Hue/Saturation +/- |
-| `EP_TOG` | External power on/off |
+| F2–F6 | Select Bluetooth profile 0–4 |
+| K | Clear the selected Bluetooth profile |
+| Esc / Enter inner key | Bootloader on that key's half |
+| E / I | Select USB / Bluetooth output |
+| Del | Toggle external power |
+| Q / W | RGB hue down / up |
+| F / P | RGB saturation down / up |
+| B | Next RGB effect |
+| A / R | RGB brightness down / up |
+| S / T | RGB speed up / down |
+| Space | Toggle RGB |
+| Left / Right thumb arrows | Page Up / Page Down |
+| Up / Down thumb arrows | Home / End |
 
-## Build
+## Differences from the Adv360
 
-GitHub Actions buduje 5 plików firmware:
+- Escape and Enter move to the left and right inner keys.
+- The thumb row retains Copy/Cut, all four arrows, Backspace, Shift/Caps Word,
+  Symbols and Space. Mod moves to the outermost right thumb key.
+- Page Up/Down are available through Mod + Left/Right;
+  Home/End move to Mod + Up/Down.
+- The `->` macro moves from the missing F21 position to Symbols + Copy.
+  Numpad equals moves from the missing F22 position to the Mod thumb key.
+- F8, F15, F16, F18–F24 and the unused thumb positions are omitted.
+  F7 was already absent from the Adv360 keymap.
+- Kinesis-specific battery reporting, version macro and backlight controls
+  are omitted. Sofle RGB, output selection and external-power controls are
+  available on Mod.
 
-- `sofle_left-OLED-zmk.uf2` - lewa połówka z OLED + Studio
-- `sofle_left-niceview-zmk.uf2` - lewa połówka z nice!view + Studio
-- `sofle_right-OLED-zmk.uf2` - prawa połówka z OLED
-- `sofle_right-niceview-zmk.uf2` - prawa połówka z nice!view
-- `settings_reset-zmk.uf2` - reset ustawień
+## Hardware and firmware
 
-## Flashowanie
+- Upstream `sofle` shield with two nice!nano v2 controllers.
+- 60 normal keys, including switches in the two encoder positions.
+- OLED SSD1306 or nice!view, depending on the selected build.
+- 30 per-key RGB LEDs per half; encoder support is disabled.
 
-1. Podłącz lewą połówkę przez USB.
-2. Naciśnij RESET dwa razy szybko.
-3. Przeciągnij odpowiedni plik `sofle_left-...uf2` na dysk `NICENANO`.
-4. Podłącz prawą połówkę przez USB.
-5. Naciśnij RESET dwa razy szybko.
-6. Przeciągnij odpowiedni plik `sofle_right-...uf2`.
-7. Połącz obie połówki przewodem TRRS.
-8. Sparuj klawiaturę jako "Sofle FT" przez Bluetooth.
+GitHub Actions builds these configurations from `build.yaml`:
 
-## Wsparcie
-
-FalbaTech  
-https://falbatech.click
-
----
-
-## EN
-
-ZMK configuration for **Sofle FT** - ergonomic FalbaTech keyboard with encoders.
-
-## Hardware
-
-- Shield: `sofle` (official upstream ZMK shield)
-- Controllers: 2x nice!nano v2
-- Display: OLED SSD1306 or nice!view, depending on build
-- RGB: per-key WS2812, 30 LEDs on each half, without underglow
-- 2x encoders, one on each half
-- 60 keys, 5 rows x 6 columns + 5 thumb keys per side
-
-## Layers
-
-| # | Name | Function |
-|---|---|---|
-| 0 | `default_layer` | QWERTY base |
-| 1 | `lower_layer` | Numbers, F-keys, activated by left thumb |
-| 2 | `raise_layer` | Symbols, navigation, activated by right thumb |
-| 3 | `adjust_layer` | System, RGB controls, BT controls |
-
-## Encoders
-
-### BASE layer
-
-- Left encoder: volume, Volume Up/Down
-- Right encoder: Page Up/Down
-
-### ADJUST layer
-
-- Left encoder: screen brightness
-- Right encoder: volume
-
-## ZMK Studio
-
-ZMK Studio is enabled.
-
-The unlock procedure is the same across all FalbaTech FT keyboards:
-
-> Hold both thumb keys activating system layers, LOWER + RAISE, and press the top left key, ` / ESC.
-
-After unlocking, the keyboard can be configured from your browser:
-
-https://zmk.studio
-
-## Bluetooth - 5 device support
-
-The keyboard supports 5 independent Bluetooth profiles. Switching is done in the system layer `adjust_layer`.
-
-| Key | Function |
+| Artifact | Half / display |
 |---|---|
-| `Z` | BT Profile 0 |
-| `X` | BT Profile 1 |
-| `C` | BT Profile 2 |
-| `V` | BT Profile 3 |
-| `B` | BT Profile 4 |
-| `N` | Clear active profile |
-| `M` | Clear all profiles |
-| `,` | USB mode |
-| `.` | Bluetooth mode |
+| `sofle_left_oled` | Left / OLED |
+| `sofle_left_niceview` | Left / nice!view |
+| `sofle_right_oled` | Right / OLED |
+| `sofle_right_niceview` | Right / nice!view |
+| `settings_reset` shield build | Clear stored settings |
 
-## RGB controls
-
-RGB controls are located in the `adjust_layer`.
-
-| Key | Function |
-|---|---|
-| Top F-key / RGB row | F1-F10 |
-| Middle RGB row | Hue/Saturation +/- |
-| `EP_TOG` | External power on/off |
-
-## Build
-
-GitHub Actions builds 5 firmware files:
-
-- `sofle_left-OLED-zmk.uf2` - left half with OLED + Studio
-- `sofle_left-niceview-zmk.uf2` - left half with nice!view + Studio
-- `sofle_right-OLED-zmk.uf2` - right half with OLED
-- `sofle_right-niceview-zmk.uf2` - right half with nice!view
-- `settings_reset-zmk.uf2` - settings reset
-
-## Flashing
-
-1. Connect the left half via USB.
-2. Press RESET twice quickly.
-3. Drag the appropriate `sofle_left-...uf2` file onto the `NICENANO` drive.
-4. Connect the right half via USB.
-5. Press RESET twice quickly.
-6. Drag the appropriate `sofle_right-...uf2` file.
-7. Connect both halves using a TRRS cable.
-8. Pair the keyboard as "Sofle FT" over Bluetooth.
-
-## Support
-
-FalbaTech  
-https://falbatech.click
+Flash the matching firmware onto **both halves**. Connect each half over USB,
+double-press Reset to enter its bootloader, and copy its UF2 onto the `NICENANO`
+drive. The halves communicate wirelessly. Pair the keyboard as **Sofle FT**,
+using Mod + F2–F6 to select a Bluetooth profile when needed.
