@@ -99,17 +99,15 @@ Hold **Mod**, then press the indicated Base key:
 
 - Upstream `sofle` shield with two nice!nano v2 controllers.
 - 60 normal keys, including switches in the two encoder positions.
-- OLED SSD1306 or nice!view, depending on the selected build.
+- No displays; display support is disabled.
 - 30 per-key RGB LEDs per half; encoder support is disabled.
 
 GitHub Actions builds these configurations from `build.yaml`:
 
-| Artifact | Half / display |
+| Artifact | Purpose |
 |---|---|
-| `sofle_left_oled` | Left / OLED |
-| `sofle_left_niceview` | Left / nice!view |
-| `sofle_right_oled` | Right / OLED |
-| `sofle_right_niceview` | Right / nice!view |
+| `sofle_left_no_display` | Left half, no display |
+| `sofle_right_no_display` | Right half, no display |
 | `settings_reset` shield build | Clear stored settings |
 
 Flash the matching firmware onto **both halves**. Connect each half over USB,
